@@ -1,4 +1,5 @@
 import numpy as np
+import bottleneck as bn
 import generic_numpy_funcs
 
 
@@ -36,7 +37,7 @@ class InfluenceSpace(object):
             [1] : k-local density for an object, e.g. den_k(x) = 1/k_dist(x)
             [2] : Sum of distances from x to its k nearest neighbors
             [3] : Reverse Nearest Neighbor Set for x
-            [4] : Influence Space of the object, defined as the union between [0] and [4]
+            [4] : Influence Space of the object, defined as the union between [0] and [3]
             
         Initializing an empty matrix and loop-filling with vectorized func results is considerably faster than just calling the func N times in the loop itself. 
         """
