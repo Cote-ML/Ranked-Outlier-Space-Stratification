@@ -169,10 +169,8 @@ class ROSS(object): #Ranked Outlier Space Stratification
             raise Exception("[Error] All points would be labeled inliers. Threshold {}, Max INFLO {}"
                             .format(self.gen_threshold, max(inflo_scores)))
                             
-def main(df):
-    data = np.array(df[self.model_fields])
-    adj_data = preprocessing.scale(data)
-    densities = InfluenceSpace(n_neighbors=round((len(data)*.05))).generate_scores(adj_data)
+def main(data):
+    densities = InfluenceSpace(n_neighbors=round((len(data)*.05))).generate_scores(data)
     labels = ROSS(binary_flag=True).run(densities[:,0], densities[:,1])
     strata_scores = np.concatenate([densities, labels[:, None]], axis=1)
     re_sorted = np.argsort(strata_scores[:, 2])
