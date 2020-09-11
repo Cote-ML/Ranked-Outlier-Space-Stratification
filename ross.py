@@ -1,3 +1,6 @@
+import numpy as np
+import generic_numpy_funcs
+
 
 class InfluenceSpace(object):
     '''
@@ -14,7 +17,7 @@ class InfluenceSpace(object):
         dist_mat = squareform(pdist(data, metric=self.distance_metric))
         is_params = self._get_influence_space(dist_mat)
         stratification_params = self._get_stratification_params(is_params)
-        ordered_strat_params = generic_numpy.sort_by_position(stratification_params, 1)
+        ordered_strat_params = generic_numpy_funcs.sort_by_position(stratification_params, 1)
         return ordered_strat_params
 
     def _get_object_influence(self, dist_mat, idx):
@@ -36,7 +39,7 @@ class InfluenceSpace(object):
             [4] : Influence Space of the object, defined as the union between [0] and [4]
         """
 
-        is_params_nested = generic_numpy.partial_vectorization_fit(self._get_object_influence, self.iterable, dist_mat)
+        is_params_nested = generic_numpy_funcs.partial_vectorization_fit(self._get_object_influence, self.iterable, dist_mat)
         is_params = np.empty((self.n_samples, 5), dtype=object)
         for idx in tqdm(self.iterable):
             is_params[idx, 0], is_params[idx, 1], is_params[idx, 2] = is_params_nested[idx]
@@ -70,7 +73,7 @@ class InfluenceSpace(object):
                                 .format(self.n_neighbors))
             return np.array([inflo_score, density_score], dtype=object)
 
-        density_scores = generic_numpy.partial_vectorization_fit(get_density_score, self.iterable, is_params)
+        density_scores = generic_numpy_funcs.partial_vectorization_fit(get_density_score, self.iterable, is_params)
         strat_params = np.zeros((self.n_samples, 2))
         for idx in self.iterable:
             strat_params[idx, 0], strat_params[idx, 1] = density_scores[idx]
