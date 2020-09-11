@@ -5,7 +5,6 @@ class InfluenceSpace(object):
         self.n_neighbors = n_neighbors
         self.standardization_eps = 0.5
 
-    @timing
     def generate_scores(self, data):
         self._initalize_model(data)
         dist_mat = squareform(pdist(data, metric=self.distance_metric))
@@ -113,21 +112,15 @@ class ROSS(object): #Ranked Outlier Space Stratification
         break_code = False
         while break_code is False:
             if self.cut > self.n_samples:
-                log.debug("[Warning] Reached end of samples without crossing Delta Threshold. No anomalies found.")
                 break
             pre_cut = self.cut
             break_code = self._calc_strata(inflo_scores, density_scores)
             labels[pre_cut:self.cut] = self.layer
-            log.debug("[Optimize] Strata {} assigned {} Samples".format(self.layer, self.cut - pre_cut))
             self.layer += 1
         labels[self.cut:] = self.layer
-        log.debug("[Optimize] Strata {} assigned {} Samples".format(self.layer, len(labels) - self.cut))
-        log.debug("[Optimize] Total Strata for Model Fit: {}".format(self.layer))
         if self.binary_flag:
-            log.debug("Reclassifying all non-maximum strata into '1' Class, and max-strata into '-1' Class")
             labels = np.array([-1 if val == self.layer else 1 for val in labels])
             anom_percent = np.count_nonzero(labels == -1)/len(labels)
-            log.debug("[Optimize] {}% outliers in current fit.".format(round(100*anom_percent),3))
         return labels
 
     def _calc_strata(self, inflo_scores, density_scores):
@@ -137,7 +130,6 @@ class ROSS(object): #Ranked Outlier Space Stratification
         """
         avg_density = np.mean(density_scores[self.cut:])
         if len(density_scores[self.cut:]) == 1:
-            log.debug("[Warning] Reached end of samples, no average density to take.")
             return True
         new_cut = next(density[0] for density in enumerate(density_scores) if density[1] > avg_density)
         adj_inflo_avg = np.mean(inflo_scores[self.cut:new_cut])
@@ -161,7 +153,6 @@ class ROSS(object): #Ranked Outlier Space Stratification
 
     def _build_threshold(self, inflo_scores):
         self.gen_threshold = np.mean(inflo_scores) + np.var(inflo_scores)
-        log.debug("[Optimize] Delta Threshold for Break: {}".format(self.gen_threshold))
         if self.gen_threshold > max(inflo_scores):
             raise Exception("[Error] All points would be labeled inliers. Threshold {}, Max INFLO {}"
                             .format(self.gen_threshold, max(inflo_scores)))
