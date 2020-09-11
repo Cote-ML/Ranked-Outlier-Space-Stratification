@@ -7,7 +7,7 @@ class InfluenceSpace(object):
     Builds influence space parameters for stratification purposes. 
     TODO: Expand user guide on this. 
     '''
-    def __init__(self, distance_metric='euclidean', n_neighbors=30):
+    def __init__(self, distance_metric='euclidean', n_neighbors=30): #Heuristicalluy, n_neighbors should be ~1% of data size. 
         self.distance_metric = distance_metric
         self.n_neighbors = n_neighbors
         self.standardization_eps = 0.5
