@@ -1,3 +1,6 @@
+import numpy as np
+
+
 def partial_vectorization_fit(func, iterable, *params):
     """
     Purpose: Given an iterable, initialize a partial vectorized function with given parameters and then iterate through
