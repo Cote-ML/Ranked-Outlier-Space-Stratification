@@ -1,5 +1,9 @@
 
 class InfluenceSpace(object):
+    '''
+    Builds influence space parameters for stratification purposes. 
+    TODO: Expand user guide on this. 
+    '''
     def __init__(self, distance_metric='euclidean', n_neighbors=30):
         self.distance_metric = distance_metric
         self.n_neighbors = n_neighbors
@@ -93,13 +97,16 @@ class InfluenceSpace(object):
         
         
 class ROSS(object): #Ranked Outlier Space Stratification
+    '''
+    Ranked Outlier Space Stratification
+    Takes in an ordered set of density function and (A)INFLO scores and stratifies into respective density strata 
+    '''
     def __init__(self, binary_flag = False):
         self.cut = 0
         self.layer = 1
         self.gen_threshold = 0
         self.binary_flag = binary_flag
 
-    @timing
     def run(self, inflo_scores, density_scores):
         """
         Input: inflo and Density scores corresponding to underlying data, and ordered w.r.t. density_scores
