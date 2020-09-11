@@ -37,6 +37,8 @@ class InfluenceSpace(object):
             [2] : Sum of distances from x to its k nearest neighbors
             [3] : Reverse Nearest Neighbor Set for x
             [4] : Influence Space of the object, defined as the union between [0] and [4]
+            
+        Initializing an empty matrix and loop-filling with vectorized func results is considerably faster than just calling the func N times in the loop itself. 
         """
 
         is_params_nested = generic_numpy_funcs.partial_vectorization_fit(self._get_object_influence, self.iterable, dist_mat)
