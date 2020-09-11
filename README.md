@@ -1,7 +1,6 @@
 # Ranked-Outlier-Space-Stratification
-Ranked Outlier Space Stratification 
 
-Current method currently used for personal projects
+Currently used in other personal projects, figured it might be time to give it its own repo. 
 
 TODO: 
 - App-ify into a PyPi package
