@@ -9,4 +9,5 @@ TODO: Lots and lots of busywork.
 - Take the time to make some unit & integration tests
 - Expand this ReadMe (what is ROSS? What is an influence space and an INFLO score? Why does stratification work? Pretty pictures & stuff too, why not)
 - Integrate to dynamically allow numpy and pandas use without outside fiddling. 
+  - Mimic SciKit standard of allowing to pass in a distance matrix too, decompose squareform stuff into its own func. 
   - This is gonna suck, but needs to be done. 
