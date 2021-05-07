@@ -29,6 +29,3 @@ def sort_by_position(data, field_idx):
     ordered_keys = np.argsort(data[:, field_idx])
     ordered_strata_scores = np.concatenate([data[ordered_keys], ordered_keys[:, None]], axis=1)
     return ordered_strata_scores
-
-if __name__ == '__main__':
-    print(1)

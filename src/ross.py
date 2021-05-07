@@ -1,3 +1,5 @@
+
+import tqdm
 import numpy as np
 import bottleneck as bn
 import generic_numpy_funcs
@@ -5,17 +7,13 @@ from scipy.spatial.distance import pdist, squareform
 
 
 class InfluenceSpace(object):
-    '''
-    Builds influence space parameters for stratification purposes. 
-    TODO: Expand user guide on this. 
-    '''
     def __init__(self, distance_metric='euclidean', n_neighbors=30): #Heuristically, n_neighbors should be ~1% of data size. 
         self.distance_metric = distance_metric
         self.n_neighbors = n_neighbors
         self.standardization_eps = 0.5
 
     def generate_scores(self, data):
-        self._initalize_model(data)
+        self._initialize_model(data)
         dist_mat = squareform(pdist(data, metric=self.distance_metric))
         is_params = self._get_influence_space(dist_mat)
         stratification_params = self._get_stratification_params(is_params)
@@ -40,7 +38,8 @@ class InfluenceSpace(object):
             [3] : Reverse Nearest Neighbor Set for x
             [4] : Influence Space of the object, defined as the union between [0] and [3]
             
-        Initializing an empty matrix and loop-filling with vectorized func results is considerably faster than just calling the func N times in the loop itself. 
+        Initializing an empty matrix and loop-filling with vectorized func results is considerably faster than just
+        calling the func N times in the loop itself.
         """
 
         is_params_nested = generic_numpy_funcs.partial_vectorization_fit(self._get_object_influence, self.iterable, dist_mat)
@@ -83,7 +82,7 @@ class InfluenceSpace(object):
             strat_params[idx, 0], strat_params[idx, 1] = density_scores[idx]
         return strat_params
 
-    def _initalize_model(self, data):
+    def _initialize_model(self, data):
         self.n_samples = len(data)
         self.iterable = range(self.n_samples)
 
@@ -98,12 +97,9 @@ class InfluenceSpace(object):
             raise Exception("[Error] Neighborhood range greater than the number of samples in the data.")
         if type(self.n_neighbors) is not int:
             raise Exception("[Error] Neighborhood must be a discrete integer, not {}".format(type(self.n_neighbors)))
-        #if not (0 - self.standardization_eps <= data.mean() <= 0 + self.standardization_eps):
-        #    raise Exception("[Error] Your data does not look standardized (mean 0, var 1). True Mean {}, True Var {}"
-        #                    .format(data.mean(), data.var()))
         
         
-class ROSS(object): #Ranked Outlier Space Stratification
+class ROSS(object):
     '''
     Ranked Outlier Space Stratification
     Takes in an ordered set of density function and (A)INFLO scores and stratifies into respective density strata 
@@ -170,7 +166,8 @@ class ROSS(object): #Ranked Outlier Space Stratification
         if self.gen_threshold > max(inflo_scores):
             raise Exception("[Error] All points would be labeled inliers. Threshold {}, Max INFLO {}"
                             .format(self.gen_threshold, max(inflo_scores)))
-                            
+
+
 def main(data):
     densities = InfluenceSpace(n_neighbors=round((len(data)*.05))).generate_scores(data)
     labels = ROSS(binary_flag=True).run(densities[:,0], densities[:,1])

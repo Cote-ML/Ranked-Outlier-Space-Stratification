@@ -3,7 +3,7 @@ import setuptools
 setuptools.setup(
     name="ranked-outlier-space-stratification", # Replace with your own username
     version="0.0.1",
-    author="Brian Cote",
+    author="Lee Cote",
     author_email="brian.lee.cote@gmail.com",
     description="Outlier detection model that stratifies data into levels of outlierness",
     url="https://github.com/LeeCote94/Ranked-Outlier-Space-Stratification/",
