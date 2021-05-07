@@ -10,7 +10,7 @@ df['label'] = ross.fit_predict(np.array(df))
 ```
 Higher valued labels = more of an outlier / "more strange"
 
-![image](https://user-images.githubusercontent.com/47681284/117404884-f9f15600-aec7-11eb-96fa-19bc6d1b1db5.png)
+![image](https://user-images.githubusercontent.com/47681284/117406023-b8fa4100-aec9-11eb-8806-5a43d76a600c.png)
 
 Keyword binary_flag=True turns into a straight forward outlier detection algo.
 
