@@ -4,7 +4,7 @@ Optimized, **non-parametric**, numpy-coded package which takes any NxM data arra
 
 Usage:
 ```
-from ranked_outlier_space_stratification import ross
+from ross import ross
 
 df['label'] = ross.fit_predict(np.array(df))
 ```
