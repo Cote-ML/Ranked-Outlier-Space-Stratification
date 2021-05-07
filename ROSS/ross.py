@@ -7,7 +7,7 @@ from scipy.spatial.distance import pdist, squareform
 
 
 class InfluenceSpace(object):
-    def __init__(self, distance_metric='euclidean', n_neighbors=30): #Heuristically, n_neighbors should be ~1% of data size. 
+    def __init__(self, distance_metric='euclidean', n_neighbors=30):
         self.distance_metric = distance_metric
         self.n_neighbors = n_neighbors
         self.standardization_eps = 0.5
@@ -129,7 +129,7 @@ class Model(object):
             self.layer += 1
         labels[self.cut:] = self.layer
         if self.binary_flag:
-            labels = np.array([-1 if val == self.layer else 1 for val in labels])
+            labels = np.array([-1 if val >= self.layer-1 else 1 for val in labels])
             anom_percent = np.count_nonzero(labels == -1)/len(labels)
         return labels
 

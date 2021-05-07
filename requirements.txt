@@ -3,3 +3,4 @@ pandas
 bottleneck
 scipy
 functools
+tqdm
