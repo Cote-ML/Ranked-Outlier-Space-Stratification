@@ -3,11 +3,11 @@
 Optimized, **non-parametric**, numpy-coded package which takes any NxM data array and stratifies data by levels of outlierness. It will dynamically determine the amount of outlier strata by itself, depending on the underlying data. 
 
 Usage:
-
+```
 from ranked_outlier_space_stratification import ross
 
 df['label'] = ross.fit_predict(np.array(df))
-
+```
 Higher valued labels = more of an outlier / "more strange"
 
 ![image](https://user-images.githubusercontent.com/47681284/117404884-f9f15600-aec7-11eb-96fa-19bc6d1b1db5.png)
