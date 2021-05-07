@@ -1,0 +1,15 @@
+Metadata-Version: 1.2
+Name: ranked-outlier-space-stratification
+Version: 0.0.1
+Summary: Outlier detection model that stratifies data into levels of outlierness
+Home-page: https://github.com/LeeCote94/Ranked-Outlier-Space-Stratification/
+Author: Brian Cote
+Author-email: brian.lee.cote@gmail.com
+License: UNKNOWN
+Project-URL: Bug Tracker, https://github.com/LeeCote94/Ranked-Outlier-Space-Stratification/issues
+Description: UNKNOWN
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
