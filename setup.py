@@ -15,7 +15,7 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    package_dir={"": "src"},
-    packages=setuptools.find_packages(where="src"),
+    package_dir={"": "ROSS"},
+    packages=setuptools.find_packages(where="ROSS"),
     python_requires=">=3.6",
 )

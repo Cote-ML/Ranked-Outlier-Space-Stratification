@@ -1,8 +1,8 @@
 
-import tqdm
+from tqdm import tqdm
 import numpy as np
 import bottleneck as bn
-import generic_numpy_funcs
+from ROSS import helpers
 from scipy.spatial.distance import pdist, squareform
 
 
@@ -12,12 +12,12 @@ class InfluenceSpace(object):
         self.n_neighbors = n_neighbors
         self.standardization_eps = 0.5
 
-    def generate_scores(self, data):
+    def run(self, data):
         self._initialize_model(data)
         dist_mat = squareform(pdist(data, metric=self.distance_metric))
         is_params = self._get_influence_space(dist_mat)
         stratification_params = self._get_stratification_params(is_params)
-        ordered_strat_params = generic_numpy_funcs.sort_by_position(stratification_params, 1)
+        ordered_strat_params = helpers.sort_by_position(stratification_params, 1)
         return ordered_strat_params
 
     def _get_object_influence(self, dist_mat, idx):
@@ -42,7 +42,7 @@ class InfluenceSpace(object):
         calling the func N times in the loop itself.
         """
 
-        is_params_nested = generic_numpy_funcs.partial_vectorization_fit(self._get_object_influence, self.iterable, dist_mat)
+        is_params_nested = helpers.partial_vectorization_fit(self._get_object_influence, self.iterable, dist_mat)
         is_params = np.empty((self.n_samples, 5), dtype=object)
         for idx in tqdm(self.iterable):
             is_params[idx, 0], is_params[idx, 1], is_params[idx, 2] = is_params_nested[idx]
@@ -76,7 +76,7 @@ class InfluenceSpace(object):
                                 .format(self.n_neighbors))
             return np.array([inflo_score, density_score], dtype=object)
 
-        density_scores = generic_numpy_funcs.partial_vectorization_fit(get_density_score, self.iterable, is_params)
+        density_scores = helpers.partial_vectorization_fit(get_density_score, self.iterable, is_params)
         strat_params = np.zeros((self.n_samples, 2))
         for idx in self.iterable:
             strat_params[idx, 0], strat_params[idx, 1] = density_scores[idx]
@@ -99,7 +99,7 @@ class InfluenceSpace(object):
             raise Exception("[Error] Neighborhood must be a discrete integer, not {}".format(type(self.n_neighbors)))
         
         
-class ROSS(object):
+class Model(object):
     '''
     Ranked Outlier Space Stratification
     Takes in an ordered set of density function and (A)INFLO scores and stratifies into respective density strata 
@@ -168,9 +168,9 @@ class ROSS(object):
                             .format(self.gen_threshold, max(inflo_scores)))
 
 
-def main(data):
-    densities = InfluenceSpace(n_neighbors=round((len(data)*.05))).generate_scores(data)
-    labels = ROSS(binary_flag=True).run(densities[:,0], densities[:,1])
+def fit_predict(data, binary_flag=False):
+    densities = InfluenceSpace(n_neighbors=round((len(data)*.05))).run(data)
+    labels = Model(binary_flag=binary_flag).run(densities[:,0], densities[:,1])
     strata_scores = np.concatenate([densities, labels[:, None]], axis=1)
     re_sorted = np.argsort(strata_scores[:, 2])
     return strata_scores[re_sorted][:, 3]
