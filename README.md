@@ -1,6 +1,6 @@
 # Ranked-Outlier-Space-Stratification
 
-Optimized, numpy-coded package which takes any NxM data array and stratifies data by levels of outlierness.
+Optimized, **non-parametric**, numpy-coded package which takes any NxM data array and stratifies data by levels of outlierness. It will dynamically determine the amount of outlier strata by itself, depending on the underlying data. 
 
 Higher valued labels = more of an outlier / "more strange"
 
