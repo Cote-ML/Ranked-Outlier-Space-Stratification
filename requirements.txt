@@ -3,4 +3,5 @@ pandas
 bottleneck
 scipy
 functools
+scikit-learn
 tqdm
