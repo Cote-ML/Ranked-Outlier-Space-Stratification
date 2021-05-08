@@ -12,7 +12,7 @@ If you are uninterested in 'levels' of outlierness, a simple keyword `binary_fla
 
 # User Guide
 
-### CLI installation
+### CLI installation (Linux/OSX)
 ```
 git clone git@github.com:LeeCote94/Ranked-Outlier-Space-Stratification.git
 cd Ranked-Outlier-Space-Stratification
