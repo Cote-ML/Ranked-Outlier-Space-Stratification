@@ -2,7 +2,7 @@
 from tqdm import tqdm
 import numpy as np
 import bottleneck as bn
-from ROSS import helpers
+from ross import helpers
 from scipy.spatial.distance import pdist, squareform
 
 
