@@ -1,6 +1,7 @@
 *.csv
 *.pyc
-.ipynb_chrckpoints/
+.ipynb_checkpoints/
+notebooks/.ipynb_checkpoints/
 .installed.cfg
 bin
 develop-eggs
