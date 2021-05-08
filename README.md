@@ -1,13 +1,31 @@
-# Ranked-Outlier-Space-Stratification
+# Ranked Outlier Space Stratification (R.O.S.S.)
 
-Optimized, **non-parametric**, numpy-coded package which takes any NxM data array and stratifies data by levels of outlierness. It will dynamically determine the amount of outlier strata by itself, depending on the underlying data. 
+Module which takes any float-valued NxM array and stratifies the data by levels of outlierness. This method is novel in that it, unlike all other outlier detection methods-- e.g., Isolation Forests, One Class SVM's, etc.-- is *entirely non-parametric and not reliant on a random seed.* You do not need to tell its contamination rate like IsoForest nor the NN's to check in KNN or Local Outlier Factor. It will dynamically determine the pollution rate of the set, *and determine the amount of outlier strata that exist unique to that data.* 
 
-Usage:
+These gains make it asymptotically O(N) linear run time. Beyond its computational efficiencies gained through no hyperparameter tuning, this method has the novel gain of being specifically designed at handling three major issues of outlier detection:
+
+1. Swamping/Masking
+2. Multiple centroids of varying density
+3. Connected centroids
+
+![image](https://user-images.githubusercontent.com/47681284/117521024-c87c9700-af68-11eb-8b20-608e848e2e34.png)
+
+If you are uninterested in 'levels' of outlierness, a simple keyword `binary_flag = True` will assert the results into an inlier/outlier dynamic.
+
+# User Guide
+
+### CLI installation
 ```
-from ross import ross
-
-df['label'] = ross.fit_predict(np.array(df))
+git clone git@github.com:LeeCote94/Ranked-Outlier-Space-Stratification.git
+cd Ranked-Outlier-Space-Stratification
+sudo pip3 install . 
+pip3 show -f RankedOutliers #Confirm successful installation
 ```
-Higher valued labels = more of an outlier / "more strange"
 
-![image](https://user-images.githubusercontent.com/47681284/117406023-b8fa4100-aec9-11eb-8806-5a43d76a600c.png)
+### Python Use
+```
+from ross import model
+
+df = pd.read_csv('/path/to/data.csv')
+df['labels'] = model.fit_predict(np.array(df))
+```
