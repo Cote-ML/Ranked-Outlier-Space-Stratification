@@ -8,8 +8,6 @@ These gains make it asymptotically O(N) linear run time. Beyond its computationa
 2. Multiple centroids of varying density
 3. Connected centroids
 
-![image](https://user-images.githubusercontent.com/47681284/117521024-c87c9700-af68-11eb-8b20-608e848e2e34.png)
-
 If you are uninterested in 'levels' of outlierness, a simple keyword `binary_flag = True` will assert the results into an inlier/outlier dynamic.
 
 # User Guide
