@@ -6,9 +6,9 @@ setuptools.setup(
     author="Lee Cote",
     author_email="brian.lee.cote@gmail.com",
     description="Outlier detection model that stratifies NxM Array into levels of outlierness",
-    url="https://github.com/LeeCote94/Ranked-Outlier-Space-Stratification/",
+    url="https://github.com/BrianCote/Ranked-Outlier-Space-Stratification/",
     project_urls={
-        "Bug Tracker": "https://github.com/LeeCote94/Ranked-Outlier-Space-Stratification/issues",
+        "Bug Tracker": "https://github.com/BrianCote/Ranked-Outlier-Space-Stratification/issues",
     },
     classifiers=[
         "Programming Language :: Python :: 3",
