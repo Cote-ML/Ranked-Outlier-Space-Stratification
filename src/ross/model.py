@@ -89,7 +89,7 @@ class InfluenceSpace(object):
         if type(data) is not np.ndarray:
             raise Exception("[Error] Data must be imported as an nxm data array, not {}".format(type(data)))
         if np.isnan(data).any():
-            raise Exception("ERROR] NaN values contained in data")
+            raise Exception("[Error] NaN values contained in data")
         if data.shape[1] > data.shape[0]:
             raise Exception("[Error] Number of columns may not exceed number of records: {} vs {}"
                             .format(data.shape[1], data.shape[0]))
