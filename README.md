@@ -16,7 +16,7 @@ If you are uninterested in 'levels' of outlierness, a simple keyword `binary_fla
 
 ### CLI installation (Linux/OSX)
 ```
-git clone git@github.com:BrianCote/Ranked-Outlier-Space-Stratification.git
+git clone git@github.com:Cote-ML/Ranked-Outlier-Space-Stratification.git
 cd Ranked-Outlier-Space-Stratification
 sudo pip3 install . 
 pip3 show -f RankedOutliers #Confirm successful installation
